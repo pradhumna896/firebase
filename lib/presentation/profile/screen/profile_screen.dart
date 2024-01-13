@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (snapshot.hasData) {
             var data = snapshot.data!.data() as Map<String, dynamic>;
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,24 +48,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         data['image'],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
-                  
                       initialValue: data['firstName'],
-                      decoration:  InputDecoration(
-                        labelText: "name",
-                          hintText: "Enter your first name"),
+                      decoration: const InputDecoration(
+                          labelText: "name", hintText: "Enter your first name"),
                       onChanged: (value) {
                         setState(() {
                           firstName = value;
                         });
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       initialValue: data['lastName'],
-                      decoration:
-                          const InputDecoration(hintText: "Enter your last name"),
+                      decoration: const InputDecoration(
+                          hintText: "Enter your last name"),
                       onChanged: (value) {
                         setState(() {
                           lastName = value;
@@ -73,15 +71,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         });
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       data['age'],
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       data['email'],
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     ElevatedButton(
                         onPressed: () {
@@ -91,8 +89,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 .collection('users')
                                 .doc(auth.currentUser?.email)
                                 .update({
-                              'firstName': firstName??data['firstName'],
-                              'lastName': lastName??data['lastName'],
+                              'firstName': firstName ?? data['firstName'],
+                              'lastName': lastName ?? data['lastName'],
                               'age': data['age'],
                               'email': data['email'],
                             });
@@ -100,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             print(e);
                           }
                         },
-                        child: Text("Edit Profile"))
+                        child: const Text("Edit Profile"))
                   ],
                 ),
               ),
