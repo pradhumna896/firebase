@@ -41,9 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration:
                       const InputDecoration(hintText: "Enter your email"),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: passwordController,
                   validator: (value) {
                     if (value!.isEmpty) {

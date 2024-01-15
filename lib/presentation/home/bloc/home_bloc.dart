@@ -42,7 +42,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         "title": event.title,
         "post": image,
         "createdBy": auth.currentUser!.email,
-        "createdAt": DateTime.now().millisecondsSinceEpoch,
+        "createdAt": DateTime.now(),
         "likes": [],
         "comments": []
       });
