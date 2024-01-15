@@ -165,13 +165,40 @@ class CustomPostSheet extends StatefulWidget {
 
 class _CustomPostSheetState extends State<CustomPostSheet> {
   Uint8List? image;
-  imagePick() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  imagePick(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       image = await pickedFile.readAsBytes();
       setState(() {});
     }
+  }
+
+  imageSource() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  imagePick(ImageSource.camera);
+                },
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  imagePick(ImageSource.gallery);
+                },
+                leading: const Icon(Icons.image),
+                title: const Text("Gallery"),
+              ),
+            ],
+          );
+        });
   }
 
   final TextEditingController title = TextEditingController();
@@ -186,9 +213,9 @@ class _CustomPostSheetState extends State<CustomPostSheet> {
         children: [
           InkWell(
             onTap: () {
-              imagePick();
+              imageSource();
             },
-            child: Container(
+            child: SizedBox(
               height: 200,
               width: 200,
               child: image == null

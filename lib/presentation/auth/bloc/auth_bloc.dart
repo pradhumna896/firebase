@@ -1,12 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:push_notification/presentation/auth/bloc/auth_event.dart';
-import 'package:push_notification/presentation/auth/bloc/auth_state.dart';
+import 'auth.dart';
 
 class AuthBLoc extends Bloc<AuthEvent, AuthState> {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -16,7 +10,6 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginEvent>(_loginMethod);
     on<AuthSignupEvent>(_signupMethod);
   }
-
   FutureOr<void> _loginMethod(
       AuthLoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -28,7 +21,6 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoginFailed(e.message!));
     }
   }
-
   FutureOr<void> _signupMethod(
       AuthSignupEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -49,7 +41,6 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSignupFailed(e.message!));
     }
   }
-
   Future<String> uploadImage(Uint8List file) async {
     var ref = storage.ref().child("images");
     var uploadTask = await ref.putData(file);

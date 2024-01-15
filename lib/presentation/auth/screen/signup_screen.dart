@@ -20,7 +20,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  AuthBLoc _authBLoc = AuthBLoc();
+  final AuthBLoc _authBLoc = AuthBLoc();
   final GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -28,14 +28,43 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Uint8List? image;
-  imagePick() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  imagePick(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       image = await pickedFile.readAsBytes();
-
       setState(() {});
     }
+  }
+
+  imageSource() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+          
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    imagePick(ImageSource.camera);
+                  },
+                  leading: Icon(Icons.camera),
+                  title: Text("Camera"),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    imagePick(ImageSource.gallery);
+                  },
+                  leading: Icon(Icons.image),
+                  title: Text("Gallery"),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -93,9 +122,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             right: -10,
                             child: IconButton(
                               onPressed: () {
-                                imagePick();
+                                imageSource();
                               },
-                              icon: Icon(Icons.camera),
+                              icon: const Icon(Icons.camera),
                             ))
                       ],
                     ),
@@ -160,11 +189,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     const SizedBox(height: 20),
                     state is AuthLoading
-                        ? CircularProgressIndicator()
+                        ? const CircularProgressIndicator()
                         : ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
-                                minimumSize: Size(double.infinity, 45),
+                                minimumSize: const Size(double.infinity, 45),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 )),

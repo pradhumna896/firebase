@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:push_notification/presentation/auth/bloc/auth_bloc.dart';
-import 'package:push_notification/presentation/auth/bloc/auth_event.dart';
-import 'package:push_notification/presentation/auth/bloc/auth_state.dart';
-import 'package:push_notification/presentation/home/screen/home_screen.dart';
+
+import '../bloc/auth.dart';
+
 
 class LoginScreen extends StatefulWidget {
   static const route = "/login_screen";
@@ -14,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  AuthBLoc _authBLoc = AuthBLoc();
+  final AuthBLoc _authBLoc = AuthBLoc();
   final GlobalKey<FormState> form = GlobalKey();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -29,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 300),
+                const SizedBox(height: 300),
                 TextFormField(
                   controller: emailController,
                   validator: (value) {

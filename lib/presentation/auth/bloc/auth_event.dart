@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 class AuthEvent {}
@@ -6,7 +5,10 @@ class AuthEvent {}
 class AuthLoginEvent extends AuthEvent {
   final String email;
   final String password;
-  AuthLoginEvent({required this.email, required this.password});
+  AuthLoginEvent({
+    required this.email,
+    required this.password,
+  });
 }
 
 class AuthLogoutEvent extends AuthEvent {}
@@ -18,7 +20,7 @@ class AuthSignupEvent extends AuthEvent {
   final String email;
   final String password;
   final Uint8List imageFile;
-  AuthSignupEvent( {
+  AuthSignupEvent({
     required this.imageFile,
     required this.email,
     required this.password,
