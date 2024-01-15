@@ -8,6 +8,7 @@ import 'package:push_notification/presentation/auth/bloc/auth_bloc.dart';
 import 'package:push_notification/presentation/auth/screen/login_screen.dart';
 import 'package:push_notification/presentation/auth/screen/signup_screen.dart';
 import 'package:push_notification/presentation/chat/chat_screen.dart';
+import 'package:push_notification/presentation/comment/comment_screen.dart';
 import 'package:push_notification/presentation/home/bloc/home_bloc.dart';
 import 'package:push_notification/presentation/home/screen/home_screen.dart';
 import 'package:push_notification/presentation/profile/screen/profile_screen.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.route: (context) => const HomeScreen(),
           ProfileScreen.route: (context) => const ProfileScreen(),
           ChatScreen.route: (context) => const ChatScreen(),
+          CommentScreen.route: (context) => CommentScreen()
         },
       ),
     );

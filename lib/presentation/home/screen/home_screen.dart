@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:push_notification/presentation/auth/screen/login_screen.dart';
 import 'package:push_notification/presentation/chat/chat_screen.dart';
+import 'package:push_notification/presentation/comment/comment_screen.dart';
 import 'package:push_notification/presentation/home/bloc/home_bloc.dart';
 import 'package:push_notification/presentation/home/bloc/home_event.dart';
 import 'package:push_notification/presentation/home/bloc/home_state.dart';
@@ -108,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, CommentScreen.route);
+                          },
                           icon: const Icon(Icons.comment),
                         ),
                       ],

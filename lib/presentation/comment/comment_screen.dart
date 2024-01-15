@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CommentScreen extends StatelessWidget {
-  const CommentScreen({super.key});
-
+  static const route = "/comment_screen";
+  CommentScreen({super.key});
+  TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,36 +15,37 @@ class CommentScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
+            Expanded(
+                child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: const CircleAvatar(),
+                  title: Text("User $index"),
+                  subtitle: Text("Comment $index"),
+                );
+              },
+            )),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
                   child: TextFormField(
+                    controller: commentController,
                     decoration: const InputDecoration(
                       hintText: "Enter your comment",
                     ),
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (commentController.text.isNotEmpty) {}
+                    commentController.clear();
+                  },
                   icon: const Icon(Icons.send),
                 )
               ],
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    leading: CircleAvatar(
-                      child: Text("A"),
-                    ),
-                    title: Text("Name"),
-                    subtitle: Text("Comment"),
-                  );
-                },
-              ),
-            )
           ],
         ),
       ),

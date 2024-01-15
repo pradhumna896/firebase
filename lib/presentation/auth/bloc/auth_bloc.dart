@@ -16,11 +16,13 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
     try {
       await auth.signInWithEmailAndPassword(
           email: event.email, password: event.password);
+
       emit(AuthLoginSuccess());
     } on FirebaseAuthException catch (e) {
       emit(AuthLoginFailed(e.message!));
     }
   }
+
   FutureOr<void> _signupMethod(
       AuthSignupEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -41,6 +43,7 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSignupFailed(e.message!));
     }
   }
+
   Future<String> uploadImage(Uint8List file) async {
     var ref = storage.ref().child("images");
     var uploadTask = await ref.putData(file);
