@@ -30,8 +30,12 @@ class AuthBLoc extends Bloc<AuthEvent, AuthState> {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: event.email, password: event.password);
       var image = await uploadImage(event.imageFile);
+      User user = userCredential.user!;
+      await user.updateDisplayName(event.firstName);
+      await user.updatePhotoURL(image);
       print(image);
-      await firestore.collection("users").doc(userCredential.user!.email).set({
+      print(auth.currentUser!.displayName);
+      await firestore.collection("users").doc(userCredential.user!.uid).set({
         "firstName": event.firstName,
         "lastName": event.lastName,
         "age": event.age,

@@ -1,53 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:push_notification/presentation/auth/bloc/auth.dart';
 
 class CommentScreen extends StatelessWidget {
   static const route = "/comment_screen";
   CommentScreen({super.key});
-  TextEditingController commentController = TextEditingController();
+  final TextEditingController commentController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Comments"),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Expanded(
-                child: ListView.builder(
-              itemCount: 10,
+      body: StreamBuilder(
+        stream: firestore.collection("posts").snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var posts = snapshot.data!.docs;
+
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const CircleAvatar(),
-                  title: Text("User $index"),
-                  subtitle: Text("Comment $index"),
+                
+                var data = snapshot.data!.docs[index];
+                return Column(
+                  children: [
+                   
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data["comments"].length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(data["comments"][index]["comment"]),
+                          subtitle: Text(data["comments"][index]["email"]),
+                        );
+                      },
+                    ),
+                    const Divider(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: commentController,
+                            decoration: const InputDecoration(
+                              hintText: "Enter comment",
+                            ),
+                          ),
+                        ),
+                      
+                      ],
+                    )
+                  ],
                 );
               },
-            )),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: commentController,
-                    decoration: const InputDecoration(
-                      hintText: "Enter your comment",
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (commentController.text.isNotEmpty) {}
-                    commentController.clear();
-                  },
-                  icon: const Icon(Icons.send),
-                )
-              ],
-            ),
-          ],
-        ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }

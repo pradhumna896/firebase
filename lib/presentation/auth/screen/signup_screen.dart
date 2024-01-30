@@ -9,6 +9,7 @@ import 'package:push_notification/presentation/auth/bloc/auth_bloc.dart';
 import 'package:push_notification/presentation/auth/bloc/auth_event.dart';
 import 'package:push_notification/presentation/auth/bloc/auth_state.dart';
 import 'package:push_notification/presentation/auth/screen/login_screen.dart';
+import 'package:push_notification/presentation/chat/user_search_screen.dart';
 import 'package:push_notification/presentation/home/screen/home_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -41,7 +42,6 @@ class _SignupScreenState extends State<SignupScreen> {
         context: context,
         builder: (context) {
           return Container(
-          
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -76,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Signup successfull,")));
           Navigator.pushNamedAndRemoveUntil(
-              context, HomeScreen.route, (route) => false);
+              context, UserSearchScreen.route, (route) => false);
         }
         if (state is AuthSignupFailed) {
           ScaffoldMessenger.of(context)

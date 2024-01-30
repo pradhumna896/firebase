@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:push_notification/presentation/chat/user_search_screen.dart';
 
 import '../bloc/auth.dart';
-
 
 class LoginScreen extends StatefulWidget {
   static const route = "/login_screen";
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (state is AuthLoginSuccess) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        HomeScreen.route,
+                        UserSearchScreen.route,
                         (route) => false,
                       );
                     }
